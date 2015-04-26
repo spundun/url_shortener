@@ -26,7 +26,7 @@ RSpec.describe ShortsController, type: :controller do
   let(:valid_attributes) { { url: "https://google.com" } }
 
   let(:invalid_attributes) {
-    { xyz: "hi" }
+    { url: "google.com" }
   }
 
   # This should return the minimal set of values that should be in the session
