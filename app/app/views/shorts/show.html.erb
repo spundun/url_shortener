@@ -4,6 +4,10 @@
 </div>
 
 <dl class="dl-horizontal">
+  <dt><strong><%= "short url" %>:</strong></dt>
+  <dd><%= root_url+@short.id.to_s %></dd>
+</dl>
+<dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:url) %>:</strong></dt>
   <dd><%= @short.url %></dd>
 </dl>
