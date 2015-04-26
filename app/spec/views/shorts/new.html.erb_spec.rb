@@ -12,7 +12,7 @@ RSpec.describe "shorts/new", type: :view do
 
     assert_select "form[action=?][method=?]", shorts_path, "post" do
 
-      assert_select "textarea#short_url[name=?]", "short[url]"
+      assert_select "input#short_url[name=?]", "short[url]"
     end
   end
 end
