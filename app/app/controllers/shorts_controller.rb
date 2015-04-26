@@ -1,9 +1,19 @@
 class ShortsController < ApplicationController
-  before_action :set_short, only: [:show, :destroy]
+  before_action :set_short, only: [:show, :destroy, :point]
+
+  rescue_from ActiveRecord::RecordNotFound, :with => :record_not_found_redirect
+
+  def record_not_found_redirect
+    redirect_to new_short_path, alert: 'No short Url was found. Would you like to create a new one?'
+  end
 
   # GET /shorts/1
   # GET /shorts/1.json
   def show
+  end
+
+  def point
+    redirect_to @short.url
   end
 
   # GET /shorts/new

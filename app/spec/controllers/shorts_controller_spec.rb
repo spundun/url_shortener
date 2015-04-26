@@ -23,12 +23,10 @@ RSpec.describe ShortsController, type: :controller do
   # This should return the minimal set of attributes required to create a valid
   # Short. As you add validations to Short, be sure to
   # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
+  let(:valid_attributes) { { url: "https://google.com" } }
 
   let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
+    { xyz: "hi" }
   }
 
   # This should return the minimal set of values that should be in the session
@@ -38,10 +36,18 @@ RSpec.describe ShortsController, type: :controller do
 
   describe "GET #point" do
     context "with valid id parameter" do
-      it "redirects to the url pointed by the id"
+      it "redirects to the url pointed by the id" do
+        short = Short.create! valid_attributes
+        get :point , {id: short.to_param}, valid_session
+        expect(response).to redirect_to(valid_attributes[:url])
+      end
     end
     context "with invalid id parameter" do
-      it "should redirect to Short #new with a warning"
+      it "should redirect to Short #new with a warning" do
+        get :point , {id: "100"}, valid_session
+        expect(response).to redirect_to(new_short_path)
+        expect(flash[:alert]).to be_present
+      end
     end
   end
 
@@ -52,7 +58,11 @@ RSpec.describe ShortsController, type: :controller do
       expect(assigns(:short)).to eq(short)
     end
     context "with invalid id parameter" do
-      it "redirects to Short #new with a warning"
+      it "redirects to Short #new with a warning" do
+        get :show, {id: "100"}, valid_session
+        expect(response).to redirect_to(new_short_path)
+        expect(flash[:alert]).to be_present
+      end
     end
   end
 
